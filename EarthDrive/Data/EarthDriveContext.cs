@@ -15,7 +15,7 @@ namespace EarthDrive.Data
         public DbSet<EarthDrive.Models.UserAuthorization> AuthorizationTable { get; set; } = default!;
         public DbSet<EarthDrive.Models.Car> Cars { get; set; }
 
-        public DbSet<EarthDrive.Models.Hire> Hires { get; set; }
+        public DbSet<EarthDrive.Models.CarRental> CarRentals { get; set; }
 
 
     }

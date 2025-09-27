@@ -1,0 +1,94 @@
+@model EarthDrive.Models.CarRental
+
+@{
+    ViewData["Title"] = "Book a Car";
+}
+
+<h1 class="mb-4">Book a Car</h1>
+<p class="text-muted">Complete the form below to reserve one of our available vehicles.</p>
+
+<form asp-action="Create" method="post" novalidate>
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="row g-3">
+        <div class="col-md-6">
+            <label asp-for="CarId" class="form-label">Vehicle</label>
+            <select asp-for="CarId" class="form-select" asp-items="ViewBag.CarId">
+                <option value="">-- Select a car --</option>
+            </select>
+            <span asp-validation-for="CarId" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-6">
+            <label asp-for="CustomerName" class="form-label"></label>
+            <input asp-for="CustomerName" class="form-control" />
+            <span asp-validation-for="CustomerName" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-6">
+            <label asp-for="CustomerEmail" class="form-label"></label>
+            <input asp-for="CustomerEmail" class="form-control" type="email" />
+            <span asp-validation-for="CustomerEmail" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-6">
+            <label asp-for="CustomerPhone" class="form-label"></label>
+            <input asp-for="CustomerPhone" class="form-control" />
+            <span asp-validation-for="CustomerPhone" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-6">
+            <label asp-for="PickupLocation" class="form-label"></label>
+            <input asp-for="PickupLocation" class="form-control" />
+            <span asp-validation-for="PickupLocation" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-6">
+            <label asp-for="DropoffLocation" class="form-label"></label>
+            <input asp-for="DropoffLocation" class="form-control" />
+            <span asp-validation-for="DropoffLocation" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-6">
+            <label asp-for="PickupDate" class="form-label">Pickup date</label>
+            <input asp-for="PickupDate" class="form-control" type="date" />
+            <span asp-validation-for="PickupDate" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-6">
+            <label asp-for="ReturnDate" class="form-label">Return date</label>
+            <input asp-for="ReturnDate" class="form-control" type="date" />
+            <span asp-validation-for="ReturnDate" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <button type="submit" class="btn btn-primary btn-lg">Reserve Now</button>
+    </div>
+</form>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+    <script>
+        (function () {
+            const pickupInput = document.getElementById("PickupDate");
+            const returnInput = document.getElementById("ReturnDate");
+            const today = new Date().toISOString().split("T")[0];
+            if (pickupInput) {
+                pickupInput.min = today;
+                pickupInput.addEventListener("change", () => {
+                    const value = pickupInput.value || today;
+                    if (returnInput) {
+                        returnInput.min = value;
+                        if (returnInput.value && returnInput.value < value) {
+                            returnInput.value = value;
+                        }
+                    }
+                });
+            }
+            if (returnInput) {
+                returnInput.min = today;
+            }
+        })();
+    </script>
+}

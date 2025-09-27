@@ -24,6 +24,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="CarRentals" asp-action="Create">Car Rental</a>
+                        </li>
                         <!-- Transaction Table only Visable if user logged in as Admin (Chris 22500937) -->
                         @if (User.IsInRole("Admin"))
                         {

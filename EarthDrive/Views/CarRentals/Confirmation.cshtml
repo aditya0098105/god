@@ -1,0 +1,34 @@
+@model EarthDrive.Models.CarRental
+
+@{
+    ViewData["Title"] = "Reservation confirmed";
+}
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <h1 class="card-title text-success">Reservation Confirmed</h1>
+        <p class="card-text">Thanks, @Model.CustomerName! Your car rental has been scheduled.</p>
+
+        <dl class="row">
+            <dt class="col-sm-4">Vehicle</dt>
+            <dd class="col-sm-8">@Model.Car?.Model</dd>
+
+            <dt class="col-sm-4">Pickup location</dt>
+            <dd class="col-sm-8">@Model.PickupLocation</dd>
+
+            <dt class="col-sm-4">Drop-off location</dt>
+            <dd class="col-sm-8">@Model.DropoffLocation</dd>
+
+            <dt class="col-sm-4">Pickup date</dt>
+            <dd class="col-sm-8">@Model.PickupDate.ToString("D")</dd>
+
+            <dt class="col-sm-4">Return date</dt>
+            <dd class="col-sm-8">@Model.ReturnDate.ToString("D")</dd>
+
+            <dt class="col-sm-4">Estimated cost</dt>
+            <dd class="col-sm-8">@Model.EstimatedCost.ToString("C")</dd>
+        </dl>
+
+        <a asp-controller="Home" asp-action="Index" class="btn btn-outline-primary">Back to home</a>
+    </div>
+</div>
