@@ -8,7 +8,7 @@
 <hr />
 <div class="row">
     <div class="col-md-6">
-        <form asp-action="Create">
+        <form asp-controller="Hires" asp-action="Create" method="post" id="hire-booking-form">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             
@@ -73,29 +73,50 @@
     }
 
     <script>
-        
-        const carRates = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(ViewData["CarRates"]));
+        document.addEventListener("DOMContentLoaded", () => {
+            const form = document.getElementById("hire-booking-form");
+            const carSelect = document.getElementById("CarId");
+            const hireDateInput = document.getElementById("HireDate");
+            const returnDateInput = document.getElementById("ReturnDate");
+            const totalAmountInput = document.getElementById("TotalAmount");
+            const carRates = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(ViewData["CarRates"] ?? new System.Collections.Generic.Dictionary<int, decimal>()));
 
-        
-        document.getElementById("CarId").addEventListener("change", calculateAmount);
-        document.getElementById("HireDate").addEventListener("change", calculateAmount);
-        document.getElementById("ReturnDate").addEventListener("change", calculateAmount);
+            if (!form || !carSelect || !hireDateInput || !returnDateInput || !totalAmountInput) {
+                return;
+            }
 
-        function calculateAmount() {
-            const carId = document.getElementById("CarId").value;
-            const hireDate = new Date(document.getElementById("HireDate").value);
-            const returnDate = new Date(document.getElementById("ReturnDate").value);
+            const calculateAmount = () => {
+                const carId = carSelect.value;
+                const hireDate = new Date(hireDateInput.value);
+                const returnDate = new Date(returnDateInput.value);
 
-            if (carId && hireDate && returnDate && !isNaN(hireDate) && !isNaN(returnDate)) {
+                if (!carId || isNaN(hireDate) || isNaN(returnDate)) {
+                    totalAmountInput.value = "";
+                    return;
+                }
+
                 let days = Math.ceil((returnDate - hireDate) / (1000 * 60 * 60 * 24));
-                if (days < 1) days = 1;
+                if (days < 1) {
+                    days = 1;
+                }
 
                 const rate = carRates[carId];
                 if (rate) {
-                    const total = (days * rate).toFixed(2);
-                    document.getElementById("TotalAmount").value = total;
+                    totalAmountInput.value = (days * rate).toFixed(2);
                 }
-            }
-        }
+                else {
+                    totalAmountInput.value = "";
+                }
+            };
+
+            carSelect.addEventListener("change", calculateAmount);
+            hireDateInput.addEventListener("change", calculateAmount);
+            returnDateInput.addEventListener("change", calculateAmount);
+
+            form.addEventListener("submit", () => {
+                // ensure the amount is recalculated just before submission
+                calculateAmount();
+            });
+        });
     </script>
 }
