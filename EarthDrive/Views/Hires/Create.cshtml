@@ -1,0 +1,101 @@
+﻿@model EarthDrive.Models.Hire
+
+@{
+    ViewData["Title"] = "Create Booking";
+}
+
+<h2>Car Rental Form</h2>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            
+            <div class="form-group mb-3">
+                <label asp-for="CarId" class="control-label">Select Car</label>
+                <select asp-for="CarId" class="form-control" asp-items="ViewBag.CarId" id="CarId"></select>
+                <span asp-validation-for="CarId" class="text-danger"></span>
+            </div>
+
+            
+            <div class="form-group mb-3">
+                <label asp-for="CustomerName" class="control-label">Customer Name</label>
+                <input asp-for="CustomerName" class="form-control" />
+                <span asp-validation-for="CustomerName" class="text-danger"></span>
+            </div>
+
+           
+            <div class="form-group mb-3">
+                <label asp-for="PickupAddress" class="control-label">Pickup Address</label>
+                <input asp-for="PickupAddress" class="form-control" />
+                <span asp-validation-for="PickupAddress" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="DropoffAddress" class="control-label">Dropoff Address</label>
+                <input asp-for="DropoffAddress" class="form-control" />
+                <span asp-validation-for="DropoffAddress" class="text-danger"></span>
+            </div>
+
+            
+            <div class="form-group mb-3">
+                <label asp-for="HireDate" class="control-label">Hire Date</label>
+                <input asp-for="HireDate" class="form-control" type="date" id="HireDate" />
+                <span asp-validation-for="HireDate" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="ReturnDate" class="control-label">Return Date</label>
+                <input asp-for="ReturnDate" class="form-control" type="date" id="ReturnDate" />
+                <span asp-validation-for="ReturnDate" class="text-danger"></span>
+            </div>
+
+            
+            <div class="form-group mb-3">
+                <label asp-for="TotalAmount" class="control-label">Total Amount</label>
+                <input asp-for="TotalAmount" class="form-control" id="TotalAmount" readonly />
+                <span asp-validation-for="TotalAmount" class="text-danger"></span>
+            </div>
+
+            
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Book Now</button>
+                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        
+        const carRates = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(ViewData["CarRates"]));
+
+        
+        document.getElementById("CarId").addEventListener("change", calculateAmount);
+        document.getElementById("HireDate").addEventListener("change", calculateAmount);
+        document.getElementById("ReturnDate").addEventListener("change", calculateAmount);
+
+        function calculateAmount() {
+            const carId = document.getElementById("CarId").value;
+            const hireDate = new Date(document.getElementById("HireDate").value);
+            const returnDate = new Date(document.getElementById("ReturnDate").value);
+
+            if (carId && hireDate && returnDate && !isNaN(hireDate) && !isNaN(returnDate)) {
+                let days = Math.ceil((returnDate - hireDate) / (1000 * 60 * 60 * 24));
+                if (days < 1) days = 1;
+
+                const rate = carRates[carId];
+                if (rate) {
+                    const total = (days * rate).toFixed(2);
+                    document.getElementById("TotalAmount").value = total;
+                }
+            }
+        }
+    </script>
+}

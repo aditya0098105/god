@@ -1,0 +1,52 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+.btn-green{
+    background-color: #28a745;
+    border-color: #28a745;
+    color:  #fff;
+}
+.btn-green:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+    color: #fff;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.object-fit-cover {
+    object-fit: cover;
+}
+
+.video-overlay {
+    background-color: rgba(1, 1, 1, 1);
+    z-index: -1;
+}
+.video-bg-wrapper {
+    z-index: -2;
+}
+
+.video-bg-wrapper video {
+    object-fit: cover;
+    filter: blur(10px) brightness(0.4);
+}
+
+

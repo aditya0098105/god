@@ -1,0 +1,51 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+<div class="video-bg-wrapper position-fixed top-0 start-0 w-100 h-100 overflow-hidden">
+    <video autoplay muted loop playsinline class="w-100 h-100 object-fit-cover">
+        <source src="/video/login-bg.mp4" type="video/mp4" />
+        <!-- https://www.pexels.com/video/driving-along-an-empty-road-4695859/ -->
+        Cant load video!
+    </video>
+    <div class="video-overlay position-absolute top-0 start-0 w-100 h-100"></div>
+</div>
+
+
+<div class="d-flex align-items-center justify-content-center min-vh-100">
+    <div class="card shadow p-4 rounded-4 shadow-lg" style="min-width: 350px; max-width: 400px; width: 100%;">
+        <h2 class="text-center mb-4">Login</h2>
+
+        <form asp-action="Login" method="post">
+            @Html.AntiForgeryToken()
+
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control rounded-4" id="username" name="username" placeholder="Userame" required>
+                <label for="username">Username</label>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input type="password" class="form-control rounded-4" id="password" name="password" placeholder="Password" required>
+                <label for="floatingPassword">Password</label>
+            </div>
+
+            @if (ViewData["LoginError"] != null)
+            {
+                <div class="text-danger text-center mb-3">@ViewData["LoginError"]</div>
+            }
+
+            <div class="d-grid text-center mb-3">
+                <button type="submit" class="btn-green text-center mb-3 rounded-4">Login</button>
+            </div>
+            
+            <div class="d-grid text-center mb-3">
+
+                <p class="mb-2">Make a Account here!</p>
+                <a asp-action="Registration" asp-controller="UserAuthorizations"
+                   class="btn btn-green btn-secondary">Register</a>
+            </div>
+             
+        </form>
+    </div>
+</div>
+
+  

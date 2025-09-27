@@ -1,0 +1,135 @@
+﻿@model IEnumerable<EarthDrive.Models.TransactionModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@inject IHttpContextAccessor HttpContextAccessor
+
+@if (User.IsInRole("Admin"))
+{
+    <h1>Index</h1>
+
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.CustomerID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TransactionDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CarID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CarPlateNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DurationOfRental)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PickupLocation)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PickUpTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DropoffLocation)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ReturnTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.VehicalType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DailyRate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LateFees)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TotalDue)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TransactionStatus)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ConfirmationStatus)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ExtraNotes)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TransactionDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CarID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CarPlateNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DurationOfRental)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PickupLocation)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PickUpTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DropoffLocation)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReturnTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VehicalType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DailyRate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LateFees)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalDue)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TransactionStatus)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ConfirmationStatus)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExtraNotes)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.TransactionID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.TransactionID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.TransactionID">Delete</a>
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Please sign into a Admin Account!.</p>
+}

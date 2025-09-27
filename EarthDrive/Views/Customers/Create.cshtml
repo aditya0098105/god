@@ -1,0 +1,48 @@
+﻿@model EarthDrive.Models.Customer
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Customer</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="cName" class="control-label"></label>
+                <input asp-for="cName" class="form-control" />
+                <span asp-validation-for="cName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="cDob" class="control-label"></label>
+                <input asp-for="cDob" class="form-control" />
+                <span asp-validation-for="cDob" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="cPhone" class="control-label"></label>
+                <input asp-for="cPhone" class="form-control" />
+                <span asp-validation-for="cPhone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="cEmail" class="control-label"></label>
+                <input asp-for="cEmail" class="form-control" />
+                <span asp-validation-for="cEmail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
